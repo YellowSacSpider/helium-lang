@@ -1,4 +1,4 @@
-#Helium Lang - the semi-esoteric programming language
+# Helium Lang - the semi-esoteric programming language
 
 ### Main goals:
 - Fast
