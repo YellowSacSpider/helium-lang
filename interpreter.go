@@ -20,7 +20,7 @@ func SyntaxAnalyzer(s *Stack){
 						s.mutableArray[s.position] = 0
 					}else{
 						s.mutableArray[s.position]++
-						fmt.Printf("Increase value at index: %d Value now: %d \n", s.position, s.mutableArray[s.position])
+						//fmt.Printf("Increase value at index: %d Value now: %d \n", s.position, s.mutableArray[s.position])
 					}
 				case 'v':
 					if s.mutableArray[s.position] <= 0 {
@@ -36,16 +36,18 @@ func SyntaxAnalyzer(s *Stack){
 					if s.position <= len(s.mutableArray) {
 						s.position--
 					}
+				case '?':
+					fmt.Printf("%c", s.mutableArray[s.position])
 				}
 			}else{ break }
 	}
 }
 
-func CodeRuner (s *Stack){
+/*func CodeRuner (s *Stack){
 	for i := 0; i < len(s.mutableArray); i++{
 		fmt.Printf("%c", s.mutableArray[i])
 	}
-}
+}*/
 
 func CodePusher(s *Stack){
 	for i := 0; i < len(s.code); i++{
@@ -63,5 +65,5 @@ func main() {
 
 	CodePusher(&s)
 	SyntaxAnalyzer(&s)
-	CodeRuner(&s)
+	//CodeRuner(&s)
 }
