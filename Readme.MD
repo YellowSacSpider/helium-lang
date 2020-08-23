@@ -17,7 +17,5 @@
 | <   | **Move to previous index of array**   |
 | ?   | **Print value of cell converted from byte to char**   |
 | !   | **Print all values in array expect white marks**   |
-| ->   | **Swap current cell value with next cell**   |
-| <-   | **Swap current cell value with previous cell**   |
 | [   | **Start of loop** (Loops default iterate 10x)   |
 | ]   | **End of loop** (Loops default iterate 10x)   |
