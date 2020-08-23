@@ -1,54 +1,67 @@
 package main
 
-
 import (
 	"fmt"
 )
 
+type Stack struct{
+	code [30000]rune
+	mutableArray [1024]byte
+	position int
+}
 
 
-func main(){
-
-		var bytes [1024]byte
-		var char rune
-		var position int = 0
-		
-		for {
-			
-			fmt.Scanf("%c", &char)
-			
-			if char == '^' && bytes[position] < 127{
-				bytes[position]++
-				fmt.Printf("Increase array value by 1 at addres: %p \n Value is now: %d \n Cell position: %d \n", &bytes[position], bytes[position], position)
-			}
-			
-			if char == 'v' && bytes[position] > 0 {
-				bytes[position]--
-				fmt.Printf("Decrease array value by 1 at addres: %p \n Value is now: %d \n Cell position: %d \n", &bytes[position], bytes[position], position)
-			}
-
-			if char == '>' && position < len(bytes) {
-				position++
-				fmt.Printf("Move to next cell of array. \n Addres: %p \n Cell position: %d \n", &bytes[position], position)
-			}
-
-			if char == '<' && position > 0 {
-				position--
-				fmt.Printf("Move to previous cell of array. \n Addres: %p \n Cell position: %d \n", &bytes[position], position)
-			}
-
-			if char == '?' &&  bytes[position] >= 33 && bytes[position] < 127 {
-				fmt.Printf("Char is: %c \n", bytes[position])
-			}
-
-			if char == '!' && bytes[position] >= 33 && bytes[position] < 127 {
-				for i := 0; i < len(bytes); i++{
-					if bytes[i] > 0 {
-						fmt.Printf("%c", bytes[i])
-					}else{ break; }
+func SyntaxAnalyzer(s *Stack){
+	for i := 0; i < len(s.code); i++{
+		if s.code[i] != 0 {
+			switch char := s.code[i]; char{
+				case '^':
+					if s.mutableArray[s.position] >= 127 {
+						s.mutableArray[s.position] = 0
+					}else{
+						s.mutableArray[s.position]++
+						fmt.Printf("Increase value at index: %d Value now: %d \n", s.position, s.mutableArray[s.position])
+					}
+				case 'v':
+					if s.mutableArray[s.position] <= 0 {
+						s.mutableArray[s.position] = 127
+					}else{
+						s.mutableArray[s.position]--
+					}
+				case '>':
+					if s.position >= 0 {
+						s.position++
+					}
+				case '<':
+					if s.position <= len(s.mutableArray) {
+						s.position--
+					}
 				}
-				fmt.Printf("\n")
-			}
-		}
+			}else{ break }
+	}
+}
 
+func CodeRuner (s *Stack){
+	for i := 0; i < len(s.mutableArray); i++{
+		fmt.Printf("%c", s.mutableArray[i])
+	}
+}
+
+func CodePusher(s *Stack){
+	for i := 0; i < len(s.code); i++{
+		fmt.Scanf("%c", &s.code[i])
+		if s.code[i] == 'q'{
+			s.code[i] = 0
+			break
+		}
+	}
+}
+
+func main() {
+
+	s := Stack{}
+
+	CodePusher(&s)
+	SyntaxAnalyzer(&s)
+	CodeRuner(&s)
 }
